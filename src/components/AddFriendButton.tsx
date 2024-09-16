@@ -6,7 +6,6 @@ import { useState } from "react";
 import zod  from 'zod'
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import Email from "next-auth/providers/email";
 
 // converting/overriding FormData as addFriendvalidator custom typescritp type
 type FormData = zod.infer<typeof addFriendvalidator>

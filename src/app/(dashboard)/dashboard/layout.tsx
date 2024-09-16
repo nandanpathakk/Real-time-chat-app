@@ -6,6 +6,8 @@ import Link from "next/link"
 import { Icon, Icons } from "@/components/icons"
 import Image from "next/image"
 import SignOutButton from "@/components/SignOutButton"
+import FriendRequestSiderBarOption from "@/components/FriendRequestSiderBarOption"
+import { fetchRedis } from "@/helpers/redis"
 
 interface LayoutProps {
     children: ReactNode
@@ -35,6 +37,13 @@ const Layout = async ({ children }: LayoutProps) => {
     if (!session) {
         notFound()
     }  // extra layer after middleware to confirm that the user is authorized for this path
+
+    const unseenRequestCount = (
+        (await fetchRedis(
+            'smembers', 
+            `user:${session.user.id}:incoming_friend_requests`
+        )) as User[]
+    ).length   //number of requests of the current user logedin
 
     return <div className="w-full flex h-screen ">
         <div className="flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
@@ -76,8 +85,12 @@ const Layout = async ({ children }: LayoutProps) => {
                         </ul>
                     </li>
 
+                    <li className="-mx-2">
+                        <FriendRequestSiderBarOption initialUnseenRequestCount={unseenRequestCount} sessionId={session.user.id}  />
+                    </li>
+
                     <li className="-mx-6 mt-auto flex items-center">
-                        <div className="flex flex-1 items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900">
+                        <div className="flex flex-1 items-center gap-x-4 px-5 py-3 text-sm font-semibold leading-6 text-gray-900">
                             <div className="relative h-8 w-8 bg-gray-50">
                                 <Image
                                     fill

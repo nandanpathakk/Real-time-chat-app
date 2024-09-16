@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import { UpstashRedisAdapter } from "@next-auth/upstash-redis-adapter";
 import { db } from "./db";
 import GoogleProvider from "next-auth/providers/google"
+import { fetchRedis } from "@/helpers/redis";
 
 // function to check google credentials are defined or not in our .env file
 function getGoogleCredentials() {
@@ -36,12 +37,18 @@ export const authOptions: NextAuthOptions = {
     //actions taken when certain events happens like signing up
     callbacks: {
         async jwt({token, user}){
-            const dbUser = ( await db.get(`user:${token.id}`)) as User | null
+            // const dbUser = ( await db.get(`user:${token.id}`)) as User | null    // replacing this with helper function as this was giving caching problems. was giving user data as undefined
+
+            const dbUserResult = ( await fetchRedis('get', `user:${token.id}` )) as 
+            |string 
+            | null
             
-            if(!dbUser) {
+            if(!dbUserResult) {
                 token.id = user!.id
                 return token
             }
+
+            const dbUser = JSON.parse(dbUserResult) as User
 
             return {
                 id: dbUser.id,
