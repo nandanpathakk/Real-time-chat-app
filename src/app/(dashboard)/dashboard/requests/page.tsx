@@ -1,9 +1,8 @@
 import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import { getServerSession, User } from "next-auth";
 import { notFound } from "next/navigation";
 import FriendRequest from "@/components/FriendRequest";
-import { sendResponse } from "next/dist/server/image-optimizer";
 
 
 const page = async () => {
