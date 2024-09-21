@@ -4,6 +4,8 @@ import { addFriendvalidator } from "@/lib/validations/add-friend";
 import { getServerSession } from "next-auth";
 import { db } from "@/lib/db";
 import zod from 'zod'
+import { pusherServer } from "@/lib/pusher";
+import { toPusherKey } from "@/lib/utils";
 
 export async function POST(req: Request) {
     try {
@@ -29,17 +31,17 @@ export async function POST(req: Request) {
 
         const idToAdd = await fetchRedis('get', `user:email:${emailToAddd}`) as string
 
-        if(!idToAdd) {
+        if (!idToAdd) {
             return new Response("Person does not exist", { status: 400 })
         }
 
         const session = await getServerSession(authOptions)
 
-        if(!session) {
+        if (!session) {
             return new Response("Unauthorized", { status: 401 })
         }
 
-        if(idToAdd === session.user.id){    
+        if (idToAdd === session.user.id) {
             return new Response("You cannot add youself as friend", { status: 400 })
         }
 
@@ -47,7 +49,7 @@ export async function POST(req: Request) {
             `user:${idToAdd}:incoming_friend_requests`,         // sismember ---> setismember
             session.user.id)) as 0 | 1
 
-        if(isAlreadyAdded) {
+        if (isAlreadyAdded) {
             return new Response("Person already added", { status: 400 })
         }
 
@@ -55,9 +57,19 @@ export async function POST(req: Request) {
             `user:${session.user.id}:friends`,                    // above and this logic both is correct is if one is the friend of other then other is also the friend of that one person
             idToAdd)) as 0 | 1
 
-        if(isAlreadyFriends) {
+        if (isAlreadyFriends) {
             return new Response("Person already is your friend", { status: 400 })
         }
+
+        // adding realtime funciton
+        //this triggers when something happens on incoming_friend_request
+
+        pusherServer.trigger(
+            toPusherKey(`user:${idToAdd}:incoming_friend_requests`),         // chanel of trigger event
+            'incoming_friend_requests', {                                    // actual name of trigger event
+            senderId: session.user.id,                                       // sending data to client
+            senderEmail: session.user.email
+        })
 
         // after validation, adding current user to friend requst list
         db.sadd(`user:${idToAdd}:incoming_friend_requests`, session.user.id)
@@ -65,9 +77,9 @@ export async function POST(req: Request) {
         return new Response('OK')
 
         // console.log(data)
-    }   catch(error) {
+    } catch (error) {
 
-        if (error instanceof zod.ZodError){
+        if (error instanceof zod.ZodError) {
             return new Response("Invalid request payload", { status: 422 })
         }
 

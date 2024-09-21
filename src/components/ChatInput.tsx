@@ -1,10 +1,8 @@
 'use client'
 import { FC, useRef, useState } from "react";
-import reactTextareaAutosize from "react-textarea-autosize";
 import TextareaAutosize from 'react-textarea-autosize';
 import Button from "./ui/Button";
 import axios from "axios";
-import { ChartBarStackedIcon } from "lucide-react";
 import toast from "react-hot-toast";
 
 
@@ -21,6 +19,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const sendMessage = async () => {
+        if(!input) return              // for senerio where no message is wittern in input box and user is trying to send message
         setIsLoading(true)
         try {
             await axios.post("/api/message/send", {

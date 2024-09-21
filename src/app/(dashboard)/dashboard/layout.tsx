@@ -1,25 +1,21 @@
 import { authOptions } from "@/lib/auth"
 import { getServerSession } from "next-auth"
 import { notFound } from "next/navigation"
-import { ReactNode, FC } from "react"
+import { ReactNode} from "react"
 import Link from "next/link"
-import { Icon, Icons } from "@/components/icons"
 import Image from "next/image"
 import SignOutButton from "@/components/SignOutButton"
 import FriendRequestSiderBarOption from "@/components/FriendRequestSiderBarOption"
 import { fetchRedis } from "@/helpers/redis"
 import { getFriendsByUserId } from "@/helpers/getFriendsByuserId"
 import SideBarChatList from "@/components/SideBarChatList"
+import MobileChatLayout from "@/components/MobileChatLayout"
+import { SideBarOption } from "@/types/typings"
+import { Icons } from "@/components/icons"
+
 
 interface LayoutProps {
     children: ReactNode
-}
-
-interface SideBarOption {
-    id: number
-    name: string
-    href: string
-    Icon: Icon
 }
 
 const sideBarOptions: SideBarOption[] = [
@@ -34,7 +30,7 @@ const sideBarOptions: SideBarOption[] = [
 
 const Layout = async ({ children }: LayoutProps) => {
 
-    const session = await getServerSession(authOptions);
+    const   session = await getServerSession(authOptions);
 
     if (!session) {
         notFound()
@@ -51,7 +47,12 @@ const Layout = async ({ children }: LayoutProps) => {
     ).length   //number of requests of the current user logedin
 
     return <div className="w-full flex h-screen ">
-        <div className="flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
+
+        <div className="md:hidden">
+            <MobileChatLayout friends={friends} session={session} sidebarOptions={sideBarOptions} unseenRequestCount={unseenRequestCount }  />
+        </div>
+
+        <div className="hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
             <Link href='/dashboard' className="flex h-16 shrink-0 items-center">
                 <Icons.Logo className="h-6 w-auto text-indigo-600" />
             </Link>
@@ -68,7 +69,7 @@ const Layout = async ({ children }: LayoutProps) => {
             <nav className="flex flex-1 flex-col">
                 <ul role="list" className="flex flex-1 flex-col gap-y-7">
                     <li>
-                        <SideBarChatList friends={friends} session={session.user.id} />
+                        <SideBarChatList friends={friends} sessionId={session.user.id} />
                     </li>
                     <li>
                         <div className="text-xs font-semibold leading-6 text-gray-400">
@@ -126,7 +127,9 @@ const Layout = async ({ children }: LayoutProps) => {
                 </ul>
             </nav>
         </div>
-        {children}
+        <aside className="max-h-screen container py-16 md:py-12 pb-12 w-full ">
+            {children}
+        </aside>
     </div>
 }
 

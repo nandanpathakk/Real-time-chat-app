@@ -1,8 +1,9 @@
 'use client'
 import Link from "next/link";
 import { User } from "lucide-react";
-import { FC, useState } from "react";
-import { diffieHellman } from "crypto";
+import { FC, useEffect, useState } from "react";
+import { pusherClient } from "@/lib/pusher";
+import { toPusherKey } from "@/lib/utils";
 
 
 interface FriendRequestSiderBarOptionProps {
@@ -20,6 +21,28 @@ const FriendRequestSiderBarOption: FC<FriendRequestSiderBarOptionProps> = ({
     )
 
     // console.log(unseenRequestCount)
+
+    
+    // adding realtime count
+
+    useEffect(() => {
+        // listning to this requestf
+        pusherClient.subscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))   
+
+        const friendRequestHandler = () => {
+            setUnseenRequestCount((prev) => prev + 1)
+        }
+
+        // whenever this happens invoke the mentioned funciton 
+        pusherClient.bind('incoming_friend_requests', friendRequestHandler)                                 
+
+        // happens on unmount
+        return () => {
+            pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))
+            pusherClient.unbind('incoming_friend_requests', friendRequestHandler)                                       // whenever this happens invoke the mentioned funciton 
+
+        }
+    }, [sessionId])
 
     return <>
         <Link href='/dashboard/requests' className="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">

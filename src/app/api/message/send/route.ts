@@ -2,9 +2,10 @@ import { fetchRedis } from "@/helpers/redis";
 import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/db";
 import {Message, messageValidator } from "@/lib/validations/message";
-import { timeStamp } from "console";
 import { getServerSession } from "next-auth";
 import {nanoid} from 'nanoid'
+import { pusherServer } from "@/lib/pusher";
+import { toPusherKey } from "@/lib/utils";
 
 export async function POST(req: Request) {
 
@@ -46,6 +47,20 @@ export async function POST(req: Request) {
         }
 
         const message = messageValidator.parse(messaageData)
+
+
+        // making realtime
+
+        pusherServer.trigger(toPusherKey(`chat:${chatId}`),
+        'incoming-message',
+        message
+    )
+
+    pusherServer.trigger(toPusherKey(`user:${chatPartner}:chats`), "new_message", {
+        ...message, 
+        senderImg: sender.image,
+        senderName: sender.name
+    })
 
         // sending message
         await db.zadd(`chat:${chatId}:messages`, {
