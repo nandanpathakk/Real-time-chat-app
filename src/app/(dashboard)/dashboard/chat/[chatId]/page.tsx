@@ -3,7 +3,6 @@
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
-import { db } from "@/lib/db";
 import { fetchRedis } from "@/helpers/redis";
 import { maessageArrayValidator } from "@/lib/validations/message";
 import Image from "next/image";
@@ -54,7 +53,8 @@ const page = async ({ params }: pageProps) => {
     }
 
     const chatPartnerId = user.id === userId1 ? (userId2) : (userId1)
-    const chatPartner = ( await db.get(`user:${chatPartnerId}`) ) as User; // can also use fetchRedis
+    const chatPartnerRaw = await fetchRedis('get', `user:${chatPartnerId}`) as string 
+    const chatPartner = JSON.parse(chatPartnerRaw) as User
     const initialMessages = await getChatMessages(chatId)
     console.log(chatPartner.image)
 

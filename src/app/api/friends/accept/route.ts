@@ -40,13 +40,25 @@ export async function POST(req: Request) {
             return new Response ("No friend Request", { status: 400})
         }
 
-        pusherServer.trigger(toPusherKey(`user:${idToAccept}:friends`), 'new_friend', {})
+        const [userRaw, friendRaw] = (await Promise.all([
+            fetchRedis('get', `user:${session.user.id}`),
+            fetchRedis('get', `user:${idToAccept}`)
+        ])) as [string, string]
 
-        await db.sadd(`user:${session.user.id}:friends`, idToAccept)
-        await db.sadd(`user:${idToAccept}:friends`, session.user.id)  // to as friend to both the person's friends list
-        await db.srem(`user:${session.user.id}:incoming_friend_requests`, idToAccept)  // removing from friend request list
+        const user = JSON.parse(userRaw) as User
+        const friend = JSON.parse(friendRaw) as User
 
-        // await db.srem(`user:${idToAccept}:outbound_friend_requests`, session.user.id)   // can apply this feature of showing outbounded/outgoing request later
+
+        await Promise.all([
+            pusherServer.trigger(toPusherKey(`user:${idToAccept}:friends`), 'new_friend', user),
+            pusherServer.trigger(toPusherKey(`user:${session.user.id}:friends`), 'new_friend', friend),
+            db.sadd(`user:${session.user.id}:friends`, idToAccept),
+            db.sadd(`user:${idToAccept}:friends`, session.user.id),  // to as friend to both the person's friends list
+            db.srem(`user:${session.user.id}:incoming_friend_requests`, idToAccept)  // removing from friend request list
+
+            // db.srem(`user:${idToAccept}:outbound_friend_requests`, session.user.id)   // can apply this feature of showing outbounded/outgoing request later
+
+        ])
 
         return new Response('OK')
       

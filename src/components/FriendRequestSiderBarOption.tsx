@@ -28,21 +28,28 @@ const FriendRequestSiderBarOption: FC<FriendRequestSiderBarOptionProps> = ({
     useEffect(() => {
         // listning to this requestf
         pusherClient.subscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))   
+        pusherClient.subscribe(toPusherKey(`user:${sessionId}:friends`))
 
         const friendRequestHandler = () => {
             setUnseenRequestCount((prev) => prev + 1)
         }
+        const addedFriendHandler = () => {
+            setUnseenRequestCount((prev) => prev - 1)
+        }
 
         // whenever this happens invoke the mentioned funciton 
-        pusherClient.bind('incoming_friend_requests', friendRequestHandler)                                 
+        pusherClient.bind('incoming_friend_requests', friendRequestHandler)    
+        pusherClient.bind('new_friend', addedFriendHandler)                             
 
         // happens on unmount
         return () => {
             pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:incoming_friend_requests`))
             pusherClient.unbind('incoming_friend_requests', friendRequestHandler)                                       // whenever this happens invoke the mentioned funciton 
+            pusherClient.unsubscribe(toPusherKey(`user:${sessionId}:friends`))
+            pusherClient.unbind('new_friend', addedFriendHandler)                             
 
         }
-    }, [sessionId])
+    }, [sessionId]) 
 
     return <>
         <Link href='/dashboard/requests' className="text-gray-700 hover:text-indigo-600 hover:bg-gray-50 group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
