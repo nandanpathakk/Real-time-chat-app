@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+  
 
 @layer base {
     .container {
@@ -31,3 +32,29 @@
 .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
     border-radius: 0.25rem;
 }
+
+:root {
+    --bg-primary:#ffffff;
+    --bg-secondary:#f9f9f9;
+    --bg-friend-message:#EEEEEE;
+    --text-friend-message:#212529;
+    --bg-input:#EEEEEE;
+}
+
+.dark {
+    --bg-primary: #212121;
+    --bg-secondary: #171717;
+    --text-primary:#b4b4af;
+    --text-secondary: rgb(82,82,91);
+    --bg-friend-message:#303030;
+    --text-friend-message:#FFFFFF;
+    --bg-input:#2f2f2f;
+
+
+}
+
+/* for smooth dark/light theme transition */
+html {
+    transition: background-color 0.3s, color 0.3s;
+  }
+  

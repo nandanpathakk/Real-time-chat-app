@@ -52,8 +52,8 @@ const FriendRequestSiderBarOption: FC<FriendRequestSiderBarOptionProps> = ({
     }, [sessionId]) 
 
     return <>
-        <Link href='/dashboard/requests' className="text-gray-700 hover:text-black hover:bg-gray-100 group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
-            <div className="text-gray-400 border-gray-200 group-hover:border-black group-hover:text-black flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white">
+        <Link href='/dashboard/requests' className="text-gray-700 dark:text-[--text-primary] hover:text-black hover:bg-gray-100 dark:hover:bg-black group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+            <div className="text-gray-400 dark:text-[--text-primary] border-gray-200 dark:border-none group-hover:border-zinc-600 group-hover:text-black dark:group-hover:text-[--text-primary] flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white dark:bg-[--bg-secondary] dark:group-hover:bg-black">
                 <User className="h-4 w-4" />
             </div>
             <p className="truncate">

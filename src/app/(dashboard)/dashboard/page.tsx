@@ -11,25 +11,25 @@ import Image from "next/image";
 const Dashboard = async () => {
 
 
-    const session = await getServerSession(authOptions);
-    if (!session) notFound();
+  const session = await getServerSession(authOptions);
+  if (!session) notFound();
 
-    const friends = await getFriendsByUserId(session.user.id)
+  const friends = await getFriendsByUserId(session.user.id)
 
-    const friendWithLastMessage = await Promise.all(
-        friends.map(async (friend) => {
-            const [RawlastMessage] = await fetchRedis('zrange', `chat:${chatHrefConstructor(session.user.id, friend.id)}:messages`, -1, -1) as string[]          // destructured it as we only want the last message from the array
-            const lastMessage = JSON.parse(RawlastMessage) as Message
+  const friendWithLastMessage = await Promise.all(
+    friends.map(async (friend) => {
+      const [RawlastMessage] = await fetchRedis('zrange', `chat:${chatHrefConstructor(session.user.id, friend.id)}:messages`, -1, -1) as string[]          // destructured it as we only want the last message from the array
+      const lastMessage = JSON.parse(RawlastMessage) as Message
 
-            return { ...friend, lastMessage }
-        })
-    )
-    return <div className='container py-12'>
+      return { ...friend, lastMessage }
+    })
+  )
+  return <div className='container py-12'>
     <h1 className='font-bold text-5xl mb-8'>Recent chats</h1>
     {friendWithLastMessage.length === 0 ? (
       <p className='text-sm text-zinc-500'>Nothing to show here...</p>
     ) : (
-        friendWithLastMessage.map((friend) => (
+      friendWithLastMessage.map((friend) => (
         <div
           key={friend.id}
           className='relative bg-zinc-50 border border-zinc-200 p-3 rounded-md'>

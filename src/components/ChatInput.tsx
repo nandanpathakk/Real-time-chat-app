@@ -46,7 +46,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
     
 
     return <div className="px-4 pt-4 mb-4 sm:mb-0">
-        <div className="relative p-2 bg-gray-100 rounded-full shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-gray-500">
+        <div className="relative p-2 bg-[--bg-input] rounded-full shadow-sm focus-within:ring-1 focus-within:ring-gray-500">
             <TextareaAutosize ref={textAreaRef} onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault()
@@ -63,7 +63,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
                 <button
                     onClick={() => setShowPicker((prev) => !prev)}
                     className="text-gray-600 hover:text-gray-800"
-                    ><MdOutlineEmojiEmotions className="w-6 h-auto" />
+                    ><MdOutlineEmojiEmotions className="w-6 h-auto text-[#171717] dark:text-gray-400" />
                     </button>
 
                       {showPicker && (
@@ -80,7 +80,7 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
                         className="border-none rounded-full focus:ring-0 focus:ring-offset-0"
                         variant='ghost'
                         isLoading={isLoading}
-                        > <VscSend className="w-5 h-auto" />
+                        > <VscSend className="w-5 h-auto dark:text-gray-400" />
                         </Button>
                 </div>
         </div>

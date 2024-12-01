@@ -85,7 +85,7 @@ const   SideBarChatList: FC<SideBarChatListProps> = ({ friends, sessionId }) => 
                         sessionId,
                         friend.id
                     )}`}
-                    className="text-gray-700 hover:bg-gray-100 group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                    className="text-gray-700 dark:text-[--text-primary] dark:hover:bg-black hover:bg-gray-100 group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
                         {/* {friend.image} */}
                         <div className="relative w-6 sm:w-8 h-6 sm:h-8">
                         <Image 

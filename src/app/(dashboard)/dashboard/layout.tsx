@@ -13,6 +13,7 @@ import MobileChatLayout from "@/components/MobileChatLayout"
 import { SideBarOption } from "@/types/typings"
 import { Icons } from "@/components/icons"
 import { IoArrowBackSharp } from "react-icons/io5";
+import ThemeToggle from "@/components/ThemeToggle"
 
 
 interface LayoutProps {
@@ -47,17 +48,23 @@ const Layout = async ({ children }: LayoutProps) => {
         )) as User[]
     ).length   //number of requests of the current user logedin
 
-    return <div className="w-full flex h-screen ">
+    return <div className="w-full flex h-screen bg-[--bg-primary]">
 
         <div className="md:hidden">
             <MobileChatLayout friends={friends} session={session} sidebarOptions={sideBarOptions} unseenRequestCount={unseenRequestCount} />
         </div>
 
-        <div className="hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
-            <Link href='/dashboard' className="flex h-16 shrink-0 items-center">
-                {/* <Icons.Logo className="h-6 w-auto text-indigo-600" /> */}
-                <IoArrowBackSharp className="h-4 w-auto" />
-            </Link>
+<div className="hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 dark:border-none bg-[--bg-secondary] px-6">
+            <div className="flex items-center justify-between">
+                <div>
+                    <Link href='/dashboard' className="flex h-16 shrink-0 items-center">    
+                        <IoArrowBackSharp className="h-4 w-auto dark:text-white text-black " />
+                    </Link>
+                </div>
+                <div>
+                    <ThemeToggle />
+                </div>
+            </div>
 
 
             <nav className="flex flex-1 flex-col">
@@ -73,9 +80,9 @@ const Layout = async ({ children }: LayoutProps) => {
                                     return (
                                         <li key={option.id}>
                                             <Link href={option.href}
-                                                className="text-gray-700 hover:text-black hover:bg-gray-100 group flex gap-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                                <span className="text-gray-400 border-gray-200 group-hover:border-black group-hover:text-black flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] bg-white">
-                                                    <Icon className="h-4 w-4 " />
+                                                className="text-gray-700 hover:text-black dark:text-[--text-primary] hover:bg-gray-100 dark:hover:bg-black group flex gap-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <span className="text-gray-400 dark:text-[--text-primary] border-gray-200 dark:border-none group-hover:border-black group-hover:text-black dark:group-hover:text-[--text-primary] dark:group-hover:bg-black flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] bg-white dark:bg-[--bg-secondary]">
+                                                    <Icon className="h-4 w-4" />
                                                 </span>
                                                 <span className="truncate">
                                                     {option.name}
@@ -109,7 +116,7 @@ const Layout = async ({ children }: LayoutProps) => {
 
                     <li className="-mx-6 mt-auto flex items-center">
                         <div className="flex flex-1 items-center gap-x-4 px-5 py-3 text-sm font-semibold leading-6 text-gray-900">
-                            <div className="relative h-8 w-8 bg-gray-50">
+                            <div className="relative h-8 w-8 bg-gray-50 rounded-full">
                                 <Image
                                     fill
                                     referrerPolicy="no-referrer"  // imges from google auth dont show without this option sometimes
@@ -120,12 +127,12 @@ const Layout = async ({ children }: LayoutProps) => {
                             </div>
                             <span className="sr-only">Your Profile</span>  {/* aria-hidden --->  This is not for the screen to show but for screen readers/ for visually impaired persons */}
                             <div className="flex flex-col">
-                                <span aria-hidden='true'>{session.user.name}</span> {/* same as above-- not showing them their names in screen reading */}
-                                <span className="text-xs text-zinc-400" aria-hidden='true'>{session.user.email}</span>
+                                <span className="dark:text-[--text-primary]" aria-hidden='true'>{session.user.name}</span> {/* same as above-- not showing them their names in screen reading */}
+                                <span className="text-xs text-zinc-400 dark:text-[--text-secondary]" aria-hidden='true'>{session.user.email}</span>
                             </div>
                         </div>
 
-                        <SignOutButton className='h-full aspect-square' />
+                        <SignOutButton className='h-full aspect-square dark:text-white dark:hover:bg-black' />
 
                     </li>
                 </ul>
