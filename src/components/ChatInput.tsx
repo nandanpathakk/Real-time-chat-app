@@ -5,6 +5,7 @@ import Button from "./ui/Button";
 import axios from "axios";
 import toast from "react-hot-toast";
 import EmojiPicker from "emoji-picker-react";
+import { EmojiClickData } from "emoji-picker-react";
 import { VscSend } from "react-icons/vsc";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
 
@@ -12,7 +13,6 @@ interface ChatInputProps {
     chatPartner: User
     chatId: string
 }
-
 
 const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
 
@@ -38,10 +38,12 @@ const ChatInput: FC<ChatInputProps> = ({ chatPartner, chatId }) => {
         }
     }
 
-    const handleEmoji = (emojiData: any) =>{
+    const handleEmoji = (emojiData: EmojiClickData) =>{
         setInput((prev) => prev + emojiData.emoji);
+        console.log("type is " + typeof(emojiData))
         setShowPicker(false)
     }
+    
 
     return <div className="px-4 pt-4 mb-4 sm:mb-0">
         <div className="relative p-2 bg-gray-100 rounded-full shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-gray-500">
