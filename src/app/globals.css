@@ -39,6 +39,8 @@
     --bg-friend-message:#EEEEEE;
     --text-friend-message:#212529;
     --bg-input:#EEEEEE;
+    --text-primary:#374151
+
 }
 
 .dark {
@@ -49,8 +51,6 @@
     --bg-friend-message:#303030;
     --text-friend-message:#FFFFFF;
     --bg-input:#2f2f2f;
-
-
 }
 
 /* for smooth dark/light theme transition */

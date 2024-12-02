@@ -5,11 +5,11 @@ import { MdOutlineDarkMode } from "react-icons/md";
 
 const ThemeToggle = () => {
 
-    const [ theme, setTheme ] = useState<string>("light")
+    const [ theme, setTheme ] = useState<string>("dark")
 
     // getting the current theme of the user in case of refresh
     useEffect(() => {
-        const currentTheme = localStorage.getItem('theme') || 'light'
+        const currentTheme = localStorage.getItem('theme') || 'dark'
         setTheme(currentTheme)
         document.documentElement.classList.toggle('dark', currentTheme === 'dark')
     },[])

@@ -84,8 +84,8 @@ const FriendRequest: FC<FriendRequestsProps> = ({ incomingFriendRequests, sessio
             ) : (
                 friendRequests.map((request) => (
                     <div key={request.senderId} className="flex gap-4 items-center">
-                        <UserPlus className="text-black" />
-                        <p className="font-medium text-lg">{request.senderEmail}</p>
+                        <UserPlus className="text-[--text-primary]" />
+                        <p className="font-medium text-lg text-[--text-primary]">{request.senderEmail}</p>
                         <button
                             onClick={() => acceptFriend(request.senderId)}
                             aria-label="accept friend" className="w-8 h-8 bg-indigo-600 hover:bg-indigo-700 grid place-items-center rounded-full transition hover:shadow-sm">

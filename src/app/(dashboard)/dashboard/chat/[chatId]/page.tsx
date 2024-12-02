@@ -59,7 +59,7 @@ const page = async ({ params }: pageProps) => {
     console.log(chatPartner.image)
 
     return <div className="flex-1 justify-between flex flex-col h-full m-h-[calc(100vh - 6rem)]">
-        <div className="flex sm:items-center justify-between pb-3 border-b border-gray-200 dark:border-[--text-secondary]">
+        <div className="flex sm:items-center justify-between pb-3 border-b border-gray-200 dark:border-[--text-secondary] px-10">
             <div className="relative flex items-center space-x-4">
                 <div className="relative">
                     <div className="relative w-8 sm:w-12 h-8 sm:h-12">

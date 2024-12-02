@@ -80,8 +80,8 @@ const Layout = async ({ children }: LayoutProps) => {
                                     return (
                                         <li key={option.id}>
                                             <Link href={option.href}
-                                                className="text-gray-700 hover:text-black dark:text-[--text-primary] hover:bg-gray-100 dark:hover:bg-black group flex gap-3 rounded-md p-2 text-sm leading-6 font-semibold">
-                                                <span className="text-gray-400 dark:text-[--text-primary] border-gray-200 dark:border-none group-hover:border-black group-hover:text-black dark:group-hover:text-[--text-primary] dark:group-hover:bg-black flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] bg-white dark:bg-[--bg-secondary]">
+                                                className="text-[--text-primary] hover:bg-gray-200 dark:hover:bg-black group flex gap-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                <span className="text-[--text-primary] dark:group-hover:text-[--text-primary] flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[0.625rem] bg-[--bg-secondary] group-hover:bg-gray-200 dark:group-hover:bg-black">
                                                     <Icon className="h-4 w-4" />
                                                 </span>
                                                 <span className="truncate">
@@ -138,7 +138,7 @@ const Layout = async ({ children }: LayoutProps) => {
                 </ul>
             </nav>
         </div>
-        <aside className="max-h-screen container py-16 md:py-12 pb-12 w-full ">
+        <aside className="max-h-screen pt-16 md:pt-3 pb-12 w-full ">
             {children}
         </aside>
     </div>
