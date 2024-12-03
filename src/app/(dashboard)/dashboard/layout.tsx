@@ -54,10 +54,10 @@ const Layout = async ({ children }: LayoutProps) => {
             <MobileChatLayout friends={friends} session={session} sidebarOptions={sideBarOptions} unseenRequestCount={unseenRequestCount} />
         </div>
 
-<div className="hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 dark:border-none bg-[--bg-secondary] px-6">
+        <div className="hidden md:flex h-full w-full max-w-xs grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 dark:border-none bg-[--bg-secondary] px-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <Link href='/dashboard' className="flex h-16 shrink-0 items-center">    
+                    <Link href='/dashboard' className="flex h-16 shrink-0 items-center">
                         <IoArrowBackSharp className="h-4 w-auto dark:text-white text-black " />
                     </Link>
                 </div>
@@ -70,17 +70,17 @@ const Layout = async ({ children }: LayoutProps) => {
             <nav className="flex flex-1 flex-col">
                 <ul role="list" className="flex flex-1 flex-col gap-y-5">
                     <li>
-                        <div className="text-xs font-semibold leading-6 text-gray-400">
+                        {/* <div className="text-xs font-semibold leading-6 text-gray-400 poppins-regular">
                             overview
-                        </div>
-                        <ul role="list" className="-mx-2 mt-2 space-y-1">
+                        </div> */}
+                        <ul role="list" className="-mx-2 space-y-1">
                             {
                                 sideBarOptions.map((option) => {
                                     const Icon = Icons[option.Icon]
                                     return (
                                         <li key={option.id}>
                                             <Link href={option.href}
-                                                className="text-[--text-primary] hover:bg-gray-200 dark:hover:bg-black group flex gap-3 rounded-md p-2 text-sm leading-6 font-semibold">
+                                                className="text-[--text-primary] hover:bg-gray-200 dark:hover:bg-black group flex gap-3 rounded-md p-2 text-sm leading-6 poppins-semibold tracking-wide">
                                                 <span className="text-[--text-primary] dark:group-hover:text-[--text-primary] flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[0.625rem] bg-[--bg-secondary] group-hover:bg-gray-200 dark:group-hover:bg-black">
                                                     <Icon className="h-4 w-4" />
                                                 </span>
@@ -102,7 +102,7 @@ const Layout = async ({ children }: LayoutProps) => {
                     <li>
                         {
                             friends.length > 0 ? (
-                                <div className="text-xs font-semibold leading-6 text-gray-400">
+                                <div className="text-xs font-semibold leading-6 text-gray-400 poppins-medium tracking-wide">
                                     Your chats
                                 </div>
                             ) : null
@@ -127,12 +127,12 @@ const Layout = async ({ children }: LayoutProps) => {
                             </div>
                             <span className="sr-only">Your Profile</span>  {/* aria-hidden --->  This is not for the screen to show but for screen readers/ for visually impaired persons */}
                             <div className="flex flex-col">
-                                <span className="dark:text-[--text-primary]" aria-hidden='true'>{session.user.name}</span> {/* same as above-- not showing them their names in screen reading */}
-                                <span className="text-xs text-zinc-400 dark:text-[--text-secondary]" aria-hidden='true'>{session.user.email}</span>
+                                <span className="dark:text-[--text-primary] poppins-semibold tracking-wide" aria-hidden='true'>{session.user.name}</span> {/* same as above-- not showing them their names in screen reading */}
+                                <span className="text-xs text-zinc-400 dark:text-[--text-secondary] poppins-regular" aria-hidden='true'>{session.user.email}</span>
                             </div>
                         </div>
 
-                        <SignOutButton className='h-full aspect-square dark:text-white dark:hover:bg-black' />
+                        <SignOutButton className='h-full aspect-square text-[--text-primary] hover:text-[--text-primary] dark:hover:bg-black' />
 
                     </li>
                 </ul>

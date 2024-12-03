@@ -80,12 +80,12 @@ const FriendRequest: FC<FriendRequestsProps> = ({ incomingFriendRequests, sessio
     return <div>
         {
             friendRequests.length === 0 ? (
-                <p className="text-sm text-zinc-500">Nothing to show here</p>
+                <p className="text-sm text-zinc-500 poppins-poppins-regular">No pending friend requests</p>
             ) : (
                 friendRequests.map((request) => (
                     <div key={request.senderId} className="flex gap-4 items-center">
                         <UserPlus className="text-[--text-primary]" />
-                        <p className="font-medium text-lg text-[--text-primary]">{request.senderEmail}</p>
+                        <p className="font-medium text-lg text-[--text-primary] poppins-medium">{request.senderEmail}</p>
                         <button
                             onClick={() => acceptFriend(request.senderId)}
                             aria-label="accept friend" className="w-8 h-8 bg-indigo-600 hover:bg-indigo-700 grid place-items-center rounded-full transition hover:shadow-sm">

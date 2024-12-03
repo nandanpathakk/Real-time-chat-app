@@ -62,7 +62,7 @@ const Messages: FC<MessagesProps> = ({
                 const isCurrentUser = message.senderId === sessionId
                 const hasNextMessageFromSameUser = finalMessages[index - 1]?.senderId === finalMessages[index].senderId  // to check the previous message was from the same user or not to syle it accordingly
 
-                return <div key={`${message.id}-${message.timeStamp}`} className="'chat-message">
+                return <div key={`${message.id}-${message.timeStamp}`} className="'chat-message poppins-regular">
 
                     <div className={cn('flex items-end', {
                         'justify-end': isCurrentUser

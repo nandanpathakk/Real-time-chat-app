@@ -52,7 +52,7 @@ const FriendRequestSiderBarOption: FC<FriendRequestSiderBarOptionProps> = ({
     }, [sessionId]) 
 
     return <>
-        <Link href='/dashboard/requests' className="text-[--text-primary] hover:bg-gray-200 dark:hover:bg-black group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold">
+        <Link href='/dashboard/requests' className="text-[--text-primary] hover:bg-gray-200 dark:hover:bg-black group flex items-center gap-x-3 rounded-md p-2 text-sm leading-6 poppins-semibold tracking-wide">
             <div className="text-[--text-primary] dark:text-[--text-primary] flex h-6 w-6 shrink-0 items-center justify-center rounded-lg text-[0.625rem] font-medium bg-[--bg-secondary] dark:group-hover:bg-black group-hover:bg-gray-200">
                 <User className="h-4 w-4" />
             </div>

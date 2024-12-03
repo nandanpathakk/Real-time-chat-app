@@ -58,7 +58,7 @@ const page = async ({ params }: pageProps) => {
     const initialMessages = await getChatMessages(chatId)
     console.log(chatPartner.image)
 
-    return <div className="flex-1 justify-between flex flex-col h-full m-h-[calc(100vh - 6rem)]">
+    return <div className="flex-1 justify-between flex flex-col h-full m-h-[calc(100dvh - 6rem)]">
         <div className="flex sm:items-center justify-between pb-3 border-b border-gray-200 dark:border-[--text-secondary] px-10">
             <div className="relative flex items-center space-x-4">
                 <div className="relative">
@@ -73,11 +73,11 @@ const page = async ({ params }: pageProps) => {
                 </div>
                 <div className="flex flex-col leading-tight ">
                     <div className="text-xl felx items-center">
-                        <span className="text-gray-700 dark:text-[--text-primary] mr-3 font-semibold">
+                        <span className="text-gray-700 dark:text-[--text-primary] mr-3 font-semibold poppins-semibold">
                             {chatPartner.name}
                         </span>
                     </div>
-                    <span className="text-sm text-gray-600 dark:text-[--text-secondary]">
+                    <span className="text-sm text-gray-600 dark:text-[--text-secondary] poppins-regular">
                         {chatPartner.email}
                     </span>
                 </div>

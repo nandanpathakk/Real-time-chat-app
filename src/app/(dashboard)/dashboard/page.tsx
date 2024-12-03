@@ -48,17 +48,17 @@ const Dashboard = async () => {
   // Render the dashboard UI
   return (
     <div className="container py-12">
-      <h1 className="font-bold text-5xl mb-8 text-[--text-primary]">
+      <h1 className="font-bold text-5xl mb-8 text-[--text-primary] poppins-bold">
         Recent chats
       </h1>
       {friendWithLastMessage.length === 0 ||
         friendWithLastMessage.every((friend) => !friend.lastMessage) ? ( // Show fallback if no chats are available
-        <p className="text-sm text-zinc-500">Nothing to show here...</p>
+        <p className="text-sm text-zinc-500 poppins-regular">Nothing to show here...</p>
       ) : (
         friendWithLastMessage.map((friend) => (
           <div
             key={friend.id}
-            className="relative bg-zinc-100 dark:bg-[--bg-input] p-3 rounded-md"
+            className="relative bg-zinc-100 dark:bg-[--bg-input] p-3 rounded-md poppins-regular"
           >
             <div className="absolute right-4 inset-y-0 flex items-center">
               <ChevronRight className="h-7 w-7 text-zinc-400" />
@@ -84,9 +84,9 @@ const Dashboard = async () => {
               </div>
 
               <div>
-                <h4 className="text-lg font-semibold dark:text-white">{friend.name}</h4>
-                <p className="mt-1 max-w-md text-[--text-primary]">
-                  <span className="text--[--text-primary]">
+                <h4 className="text-lg font-semibold dark:text-white poppins-medium">{friend.name}</h4>
+                <p className="mt-1 max-w-md text-[--text-primary] poppins-regular">
+                  <span className="text--[--text-primary] poppins-regular">
                     {friend.lastMessage?.senderId === session.user.id
                       ? "You: "
                       : ""}

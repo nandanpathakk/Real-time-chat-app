@@ -52,15 +52,15 @@ const AddFriendButton = () => {
     return <form onSubmit={handleSubmit(onSubmit)} className="max-w-sm">
         <label 
         htmlFor="email"
-        className="block text-sm font-medium leading-6 text-[--text-secondary]">
+        className="block text-sm font-medium leading-6 text-[--text-secondary] poppins-regular">
         Add friend by E-mail
         </label>
         <div className="mt-2 flex gap-4">
             <input
             {...register('email')} 
-            type="text" className="block w-full rounded-md border-0 py-1.5 bg-[--bg-input] text-gray-900 dark:text-white shadow-sm placeholder:text-gray-400 dark:placeholder:text-[--text-secondary] focus:ring-1 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-[--text-secondary] sm:text-sm sm:leading-6"
+            type="text" className="block w-full rounded-md border-0 py-1.5 bg-[--bg-input] text-gray-900 dark:text-white shadow-sm placeholder:text-gray-400 dark:placeholder:text-[--text-secondary] focus:ring-1 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-[--text-secondary] sm:text-sm sm:leading-6 poppins-regular"
             placeholder="you@example.com" />
-            <Button className="dark:bg-white dark:text-black">Add</Button>
+            <Button className="dark:bg-white dark:text-black poppins-regular">Add</Button>
         </div>
         <div className="'mt-1 text-sm text-red-600">{errors.email?.message}</div>
         {showSuccessStatus ? (
