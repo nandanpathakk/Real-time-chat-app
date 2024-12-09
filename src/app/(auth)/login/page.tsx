@@ -59,7 +59,7 @@ const Login = () => {
         <div className="relative overflow-hidden flex-1 bg-[rgb(28,29,33)] flex flex-col justify-center items-center space-y-5">
             <div className="flex flex-col items-center z-10 ">
                 <h1 className="text-gray-300 text-3xl poppins-bold">Login</h1>
-                <p className="text-gray-400 poppins-regular">Secure authentication using Google</p>
+                <p className="text-gray-400 poppins-regular ">Secure authentication using Google</p>
 
             </div>
             <Button isLoading={isLoading} type="button"
@@ -73,7 +73,7 @@ const Login = () => {
             </Button>
             {/* &apos it ' in the don't as when when directly was giving an lint error   */}
             {/* <div className="absolute bottom-4 text-gray-400 poppins-regular opacity-50">Don&apos;t want to login? */}
-            <div className="absolute bottom-4 text-gray-400 poppins-regular opacity-50">{`Don't want to login?`} 
+            <div className="text-sm absolute bottom-2 text-gray-400 poppins-regular opacity-50">{`Don't want to login?`} 
                 <span 
                 onClick={handleOpenVideo}   
                 className="text-blue-300 cursor-pointer"> See how ChatBox works</span>
