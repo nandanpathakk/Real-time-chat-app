@@ -71,9 +71,11 @@ const Login = () => {
                     Google
                 </span>
             </Button>
-            <div className="absolute bottom-4 text-gray-400 poppins-regular opacity-50">Don't want to login?
+            {/* &apos it ' in the don't as when when directly was giving an lint error   */}
+            {/* <div className="absolute bottom-4 text-gray-400 poppins-regular opacity-50">Don&apos;t want to login? */}
+            <div className="absolute bottom-4 text-gray-400 poppins-regular opacity-50">{`Don't want to login?`} 
                 <span 
-                onClick={handleOpenVideo}
+                onClick={handleOpenVideo}   
                 className="text-blue-300 cursor-pointer"> See how ChatBox works</span>
             </div>
             <DotPattern className={cn("[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",)} />
