@@ -98,6 +98,7 @@ const Login = () => {
                             <video
                                 className="w-full rounded-md"
                                 controls
+                                autoPlay
                                 poster="/images/demo_thumbnail.png"
                             >
                                 <source src="/videos/demo.mp4" type="video/mp4" />

@@ -1,5 +1,3 @@
-// under [chatId] to make it a dynamic component    
-
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";

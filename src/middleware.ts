@@ -18,7 +18,7 @@ export default withAuth(
                 return NextResponse.redirect(new URL('/dashboard', req.url))
             }
 
-            return NextResponse.next()     // if not authenticated, it will redirect the the original path i.e login here
+            return NextResponse.next()     // if not authenticated, use remain on the login page 
         }
 
         if(!isAuth && isAccessingSensitiveRoute ) {

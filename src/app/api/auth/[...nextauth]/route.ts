@@ -1,3 +1,4 @@
+//handles all the requst coming to api/auth/[...nextauth]
 import { authOptions } from "@/lib/auth";
 import NextAuth from "next-auth/next";
 
